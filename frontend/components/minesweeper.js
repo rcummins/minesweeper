@@ -70,6 +70,15 @@ export class Board {
     }
   }
 
+  allBombFreeTilesExplored() {
+    let bombFreeTiles = this.grid.flat().filter(tile => !tile.hasBomb);
+    return bombFreeTiles.every(tile => tile.explored);
+  }
+
+  bombExplored() {
+    return this.grid.flat().some(tile => tile.hasBomb && tile.explored);
+  }
+
   constructGrid() {
     const grid = [...Array(this.rowCount)].map( element => (
       Array(this.columnCount))
@@ -86,6 +95,10 @@ export class Board {
 
   getTile(pos) {
     return this.grid[pos[0]][pos[1]];
+  }
+
+  lost() {
+    return this.bombExplored();
   }
 
   onBoard(pos) {
@@ -106,5 +119,9 @@ export class Board {
     });
 
     return total;
+  }
+
+  won() {
+    return this.allBombFreeTilesExplored() && !this.bombExplored();
   }
 }
