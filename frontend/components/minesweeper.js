@@ -12,7 +12,9 @@ export class Tile {
   }
 
   explore() {
-    this.explored = true;
+    if (!this.flagged) {
+      this.explored = true;
+    }
   }
 
   neighborBombCount() {
@@ -46,7 +48,9 @@ export class Tile {
   }
 
   toggleFlag() {
-    this.flag = !this.flag;
+    if (!this.explored) {
+      this.flagged = !this.flagged;
+    }
   }
 }
 
