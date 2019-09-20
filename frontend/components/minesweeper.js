@@ -15,6 +15,36 @@ export class Tile {
     this.explored = true;
   }
 
+  neighborBombCount() {
+    let count = 0;
+
+    this.neighbors().forEach( tile => {
+      if (tile.has_bomb) {
+        count += 1;
+      }
+    });
+
+    return count;
+  }
+
+  neighbors() {
+    let neighborsArray = [];
+
+    for (let rowOffset = -1; rowOffset <= 1; rowOffset++) {
+      for (let columnOffset = -1; columnOffset <= 1; columnOffset++) {
+        if (rowOffset === 0 && columnOffset === 0) { continue; }
+
+        let newPos = [this.pos[0] + rowOffset, this.pos[1] + columnOffset];
+
+        if (!this.board.onBoard(newPos)) { continue; }
+
+        neighborsArray.push(this.board.getTile(newPos));
+      }
+    }
+
+    return neighborsArray;
+  }
+
   toggleFlag() {
     this.flag = !this.flag;
   }
@@ -52,6 +82,18 @@ export class Board {
     }
 
     return grid;
+  }
+
+  getTile(pos) {
+    return this.grid[pos[0]][pos[1]];
+  }
+
+  onBoard(pos) {
+    return(
+      pos[0] >= 0 &&
+      pos[1] >= 0 &&
+      pos[0] < this.rowCount &&
+      pos[1] < this.columnCount);
   }
 
   totalBombs() {
