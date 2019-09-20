@@ -14,6 +14,14 @@ export class Tile {
   explore() {
     if (!this.flagged) {
       this.explored = true;
+
+      if (!this.hasBomb && this.neighborBombCount() === 0) {
+        this.neighbors().forEach( neighbor => {
+          if (!neighbor.explored) {
+            neighbor.explore();
+          }
+        });
+      }
     }
   }
 
