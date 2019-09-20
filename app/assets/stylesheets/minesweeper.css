@@ -1,3 +1,25 @@
 .board-row {
   display: flex;
 }
+
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  border-width: 2px;
+  background-color: lightgray;
+}
+
+.unexplored {
+  border-style: outset;
+}
+
+.explored {
+  border-style: inset;
+}
+
+.flagged {
+  color: red;
+}
