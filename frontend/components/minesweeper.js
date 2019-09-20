@@ -2,13 +2,13 @@ export class Tile {
   constructor(pos, board) {
     this.pos = pos;
     this.board = board;
-    this.has_bomb = false;
+    this.hasBomb = false;
     this.explored = false;
     this.flagged = false;
   }
 
   addBomb() {
-    this.has_bomb = true;
+    this.hasBomb = true;
   }
 
   explore() {
@@ -19,7 +19,7 @@ export class Tile {
     let count = 0;
 
     this.neighbors().forEach( tile => {
-      if (tile.has_bomb) {
+      if (tile.hasBomb) {
         count += 1;
       }
     });
@@ -64,7 +64,7 @@ export class Board {
       let row = Math.floor(Math.random() * this.rowCount);
       let column = Math.floor(Math.random() * this.columnCount);
 
-      if (!this.grid[row][column].has_bomb) {
+      if (!this.grid[row][column].hasBomb) {
         this.grid[row][column].addBomb();
       }
     }
@@ -100,7 +100,7 @@ export class Board {
     let total = 0;
 
     this.grid.flat().forEach( tile => {
-      if (tile.has_bomb) {
+      if (tile.hasBomb) {
         total += 1;
       }
     });
