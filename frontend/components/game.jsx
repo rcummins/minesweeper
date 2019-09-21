@@ -7,7 +7,8 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      board: new Minesweeper.Board(9, 9, 10)
+      board: new Minesweeper.Board(9, 9, 10),
+      remainingFlags: 10
     };
 
     this.exploreTile = this.exploreTile.bind(this);
@@ -24,12 +25,24 @@ class Game extends React.Component {
 
   restartGame() {
     this.setState({
-      board: new Minesweeper.Board(9, 9, 10)
+      board: new Minesweeper.Board(9, 9, 10),
+      remainingFlags: 10
     });
   }
 
   toggleTileFlag(tile) {
-    tile.toggleFlag();
+    if (tile.flagged) {
+      tile.toggleFlag();
+      this.setState({
+        remainingFlags: this.state.remainingFlags + 1
+      });
+    } else if (!tile.explored && this.state.remainingFlags > 0) {
+      tile.toggleFlag();
+      this.setState({
+        remainingFlags: this.state.remainingFlags - 1
+      });
+    }
+
     this.setState({
       board: this.state.board
     });
@@ -57,6 +70,9 @@ class Game extends React.Component {
 
     return(
       <div>
+        <div className="game-counters">
+          <p>Remaining flags: { this.state.remainingFlags }</p>
+        </div>
         <Board
           board={board}
           exploreTile={this.exploreTile}
