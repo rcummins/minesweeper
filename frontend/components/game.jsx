@@ -8,11 +8,15 @@ class Game extends React.Component {
     super(props);
     this.state = {
       board: new Minesweeper.Board(9, 9, 10),
-      remainingFlags: 10
+      remainingFlags: 10,
+      elapsedTime: 0,
+      timerStarted: false
     };
 
     this.exploreTile = this.exploreTile.bind(this);
+    this.incrementTimer = this.incrementTimer.bind(this);
     this.restartGame = this.restartGame.bind(this);
+    this.startTimer = this.startTimer.bind(this);
     this.toggleTileFlag = this.toggleTileFlag.bind(this);
   }
 
@@ -23,11 +27,28 @@ class Game extends React.Component {
     });
   }
 
+  incrementTimer() {
+    this.setState({
+      elapsedTime: this.state.elapsedTime + 1
+    });
+  }
+
   restartGame() {
     this.setState({
       board: new Minesweeper.Board(9, 9, 10),
-      remainingFlags: 10
+      remainingFlags: 10,
+      elapsedTime: 0,
+      timerStarted: false
     });
+  }
+
+  startTimer() {
+    if (!this.state.timerStarted) {
+      this.intervalId = window.setInterval(this.incrementTimer, 1000);
+      this.setState({
+        timerStarted: true
+      });
+    }
   }
 
   toggleTileFlag(tile) {
@@ -53,7 +74,10 @@ class Game extends React.Component {
 
     let modal;
     if (board.won() || board.lost()) {
+
+      clearInterval(this.intervalId);
       let message = board.won() ? "Congrats, you won!" : "Sorry, you lost";
+
       modal = (
         <section>
 
@@ -72,10 +96,12 @@ class Game extends React.Component {
       <div>
         <div className="game-counters">
           <p>Remaining flags: { this.state.remainingFlags }</p>
+          <p>Elapsed time: { this.state.elapsedTime }</p>
         </div>
         <Board
           board={board}
           exploreTile={this.exploreTile}
+          startTimer={this.startTimer}
           toggleTileFlag={this.toggleTileFlag} />
 
         { modal }
