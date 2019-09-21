@@ -55,18 +55,16 @@ class Game extends React.Component {
     if (tile.flagged) {
       tile.toggleFlag();
       this.setState({
+        board: this.state.board,
         remainingFlags: this.state.remainingFlags + 1
       });
     } else if (!tile.explored && this.state.remainingFlags > 0) {
       tile.toggleFlag();
       this.setState({
+        board: this.state.board,
         remainingFlags: this.state.remainingFlags - 1
       });
     }
-
-    this.setState({
-      board: this.state.board
-    });
   }
 
   render() {
