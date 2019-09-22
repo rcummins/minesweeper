@@ -70,39 +70,36 @@ class Game extends React.Component {
   render() {
     let { board } = this.state;
 
-    let modal;
+    let gameOver;
     if (board.won() || board.lost()) {
 
       clearInterval(this.intervalId);
       let message = board.won() ? "Congrats, you won!" : "Sorry, you lost";
 
-      modal = (
-        <section>
-
-          <article className="modal-content">
-            <p>{ message }</p>
-            <button onClick={this.restartGame}>Play again</button>
-          </article>
-
-          <div className="modal-screen"></div>
-
+      gameOver = (
+        <section className="game-over">
+          <p>{ message }</p>
+          <button onClick={this.restartGame}>Play again</button>
         </section>
       )
     }
 
     return(
       <div>
+        <h1>Minesweeper</h1>
+
         <div className="game-counters">
-          <p>Remaining flags: { this.state.remainingFlags }</p>
-          <p>Elapsed time: { this.state.elapsedTime }</p>
+          <p><span>{'\u2691'}</span> { this.state.remainingFlags }</p>
+          <p>{ this.state.elapsedTime } {'\u23F1'}</p>
         </div>
+
         <Board
           board={board}
           exploreTile={this.exploreTile}
           startTimer={this.startTimer}
           toggleTileFlag={this.toggleTileFlag} />
 
-        { modal }
+        { gameOver }
       </div>
     )
   }
