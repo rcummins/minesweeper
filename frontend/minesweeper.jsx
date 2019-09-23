@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Game from './components/game';
+import Root from './components/root';
+import configureStore from './store/store';
 
 document.addEventListener('DOMContentLoaded', () => {
+  const store = configureStore();
+
   ReactDOM.render(
-    <Game />,
+    <Root store={store} />,
     document.getElementById("content")
   );
 });
