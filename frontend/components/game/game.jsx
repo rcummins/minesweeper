@@ -2,6 +2,7 @@ import React from 'react';
 
 import * as Minesweeper from './minesweeper';
 import Board from './board';
+import ScoreFormContainer from '../score_form/score_form_container';
 
 class Game extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class Game extends React.Component {
     this.state = {
       board: new Minesweeper.Board(9, 9, 10),
       remainingFlags: 10,
-      elapsedTime: 0,
+      timeElapsed: 0,
       timerStarted: false
     };
 
@@ -29,7 +30,7 @@ class Game extends React.Component {
 
   incrementTimer() {
     this.setState({
-      elapsedTime: this.state.elapsedTime + 1
+      timeElapsed: this.state.timeElapsed + 1
     });
   }
 
@@ -37,7 +38,7 @@ class Game extends React.Component {
     this.setState({
       board: new Minesweeper.Board(9, 9, 10),
       remainingFlags: 10,
-      elapsedTime: 0,
+      timeElapsed: 0,
       timerStarted: false
     });
   }
@@ -79,11 +80,19 @@ class Game extends React.Component {
         board.gameOverRevealAllBombs();
       }
 
+      let scoreForm;
+      if (board.won()) {
+        scoreForm = <ScoreFormContainer timeElapsed={this.state.timeElapsed} />;
+      }
+
       let message = board.won() ? "Congrats, you won!" : "Sorry, you lost";
 
       gameOver = (
         <section className="game-over">
           <p>{ message }</p>
+
+          { scoreForm }
+
           <button onClick={this.restartGame}>Play again</button>
         </section>
       )
@@ -95,7 +104,7 @@ class Game extends React.Component {
 
         <div className="game-counters">
           <p><span>{'\u2691'}</span> { this.state.remainingFlags }</p>
-          <p>{ this.state.elapsedTime } {'\u23F1'}</p>
+          <p>{ this.state.timeElapsed } {'\u23F1'}</p>
         </div>
 
         <Board
