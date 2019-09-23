@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { fetchScores, createScore } from '../../actions/score_actions';
+import { fetchScores } from '../../actions/score_actions';
 import Scores from './scores';
 
 const mapStateToProps = state => ({
@@ -8,8 +8,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchScores: () => dispatch(fetchScores()),
-  createScore: score => dispatch(createScore(score))
+  fetchScores: () => dispatch(fetchScores())
 });
 
 export default connect(
