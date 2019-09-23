@@ -9,7 +9,7 @@ export const receiveScores = scores => ({
 });
 
 export const receiveScore = score => ({
-  type: RECEIVE_SCORES,
+  type: RECEIVE_SCORE,
   score
 });
 
