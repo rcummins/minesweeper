@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 
-import { createScore } from '../../actions/score_actions';
+import { fetchScores, createScore } from '../../actions/score_actions';
 import ScoreForm from './score_form';
 
 const mapDispatchToProps = dispatch => ({
+  fetchScores: () => dispatch(fetchScores()),
   createScore: score => dispatch(createScore(score))
 });
 

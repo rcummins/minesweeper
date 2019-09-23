@@ -21,9 +21,10 @@ class ScoreForm extends React.Component {
         time_elapsed: this.props.timeElapsed
       }
     };
-    this.props.createScore(score).then(
-      this.setState({ username: '' })
-    );
+    this.props.createScore(score).then( () => {
+      this.setState({ username: '' });
+      this.props.fetchScores();
+    });
   }
 
   render() {
