@@ -12,11 +12,22 @@ class Scores extends React.Component {
   render() {
     return (
       <div className="score-board">
-        <ol>
-          { this.props.scores.map( (score, index) => (
-            <li key={index}>{score.username}: {score.time_elapsed}</li>
-          ))}
-        </ol>
+        <table>
+          <thead>
+            <tr>
+              <th colSpan="3">Scoreboard</th>
+            </tr>
+          </thead>
+          <tbody>
+            { this.props.scores.map( (score, index) => (
+              <tr key={index}>
+                <td className="table-rank">{index + 1}.</td>
+                <td>{score.username}</td>
+                <td className="table-time">{score.time_elapsed}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
   }

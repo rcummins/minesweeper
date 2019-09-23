@@ -90,7 +90,7 @@ class Game extends React.Component {
     }
 
     return(
-      <div>
+      <div className="game">
         <h1>Minesweeper</h1>
 
         <div className="game-counters">
