@@ -62,6 +62,10 @@ h1 {
   border-style: inset;
 }
 
+.tile.clicked-on-bomb {
+  background-color: red;
+}
+
 .tile.flagged, p span {
   color: red;
 }

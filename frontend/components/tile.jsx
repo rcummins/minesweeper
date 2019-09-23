@@ -32,12 +32,15 @@ class Tile extends React.Component {
     if (tile.flagged) {
       className = 'tile unexplored flagged';
       innerText = '\u2691';
+    } else if (tile.gameOverBombRevealed) {
+      className="tile explored";
+      innerText = '\u{1F4A3}';
     } else if (!tile.explored) {
       className = 'tile unexplored';
       innerText = '';
     } else if (tile.explored && tile.hasBomb) {
-      className = 'tile explored has-bomb';
-      innerText = '\u2622';
+      className = 'tile explored clicked-on-bomb';
+      innerText = '\u{1F4A3}';
     } else if (tile.explored && tile.neighborBombCount() > 0) {
       className = 'tile explored';
       innerText = tile.neighborBombCount();

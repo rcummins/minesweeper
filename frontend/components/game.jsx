@@ -74,6 +74,11 @@ class Game extends React.Component {
     if (board.won() || board.lost()) {
 
       clearInterval(this.intervalId);
+
+      if (board.lost()) {
+        board.gameOverRevealAllBombs();
+      }
+
       let message = board.won() ? "Congrats, you won!" : "Sorry, you lost";
 
       gameOver = (

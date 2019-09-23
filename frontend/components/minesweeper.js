@@ -5,6 +5,7 @@ export class Tile {
     this.hasBomb = false;
     this.explored = false;
     this.flagged = false;
+    this.gameOverBombRevealed = false;
   }
 
   addBomb() {
@@ -23,6 +24,10 @@ export class Tile {
         });
       }
     }
+  }
+
+  gameOverRevealBomb() {
+    this.gameOverBombRevealed = true;
   }
 
   neighborBombCount() {
@@ -107,6 +112,16 @@ export class Board {
 
   getTile(pos) {
     return this.grid[pos[0]][pos[1]];
+  }
+
+  gameOverRevealAllBombs() {
+    this.grid.forEach( row => {
+      row.forEach( tile => {
+        if (!tile.explored && tile.hasBomb) {
+          tile.gameOverRevealBomb();
+        }
+      })
+    })
   }
 
   lost() {
