@@ -24,12 +24,31 @@ class ScoreForm extends React.Component {
     this.props.createScore(score).then( () => {
       this.setState({ username: '' });
       this.props.fetchScores();
+      this.props.clearErrors();
     });
   }
 
   render() {
+    const { errors } = this.props;
+
+    let errorMessage;
+    if (errors.length > 0) {
+      errorMessage = (
+        <div className="error-message">
+          <p>Please fix the following issue:</p>
+          <ul>
+            { errors.map( (error, index) => (
+              <li key={index}>{error}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
     return(
       <form>
+
+        { errorMessage }
 
         <label htmlFor="username">
           Enter your username for the scoreboard:

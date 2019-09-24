@@ -1,4 +1,5 @@
 import * as ScoreAPIUtil from '../util/score_api_util';
+import { receiveErrors } from '../actions/error_actions';
 
 export const RECEIVE_SCORES = "RECEIVE_SCORES";
 export const RECEIVE_SCORE = "RECEIVE_SCORE";
@@ -21,6 +22,7 @@ export const fetchScores = () => dispatch => (
 
 export const createScore = formScore => dispatch => (
   ScoreAPIUtil.createScore(formScore).then(
-    score => dispatch(receiveScore(score))
+    score => dispatch(receiveScore(score)),
+    errors => dispatch(receiveErrors(errors.responseJSON))
   )
 );
