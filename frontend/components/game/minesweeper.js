@@ -92,6 +92,11 @@ export class Board {
     return bombFreeTiles.every(tile => tile.explored);
   }
 
+  allBombsFlagged() {
+    let tilesWithBombs = this.grid.flat().filter(tile => tile.hasBomb);
+    return tilesWithBombs.every(tile => tile.flagged);
+  }
+
   bombExplored() {
     return this.grid.flat().some(tile => tile.hasBomb && tile.explored);
   }
@@ -149,6 +154,7 @@ export class Board {
   }
 
   won() {
-    return this.allBombFreeTilesExplored() && !this.bombExplored();
+    return !this.bombExplored() &&
+      (this.allBombFreeTilesExplored() || this.allBombsFlagged());
   }
 }
