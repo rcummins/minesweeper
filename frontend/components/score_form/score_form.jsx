@@ -51,7 +51,7 @@ class ScoreForm extends React.Component {
         { errorMessage }
 
         <label htmlFor="username">
-          Enter your username for the scoreboard:
+          Enter a username for the scoreboard:
         </label>
 
         <input

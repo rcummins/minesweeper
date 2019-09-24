@@ -96,6 +96,10 @@ class Game extends React.Component {
           <button onClick={this.restartGame}>Play again</button>
         </section>
       )
+    } else {
+      gameOver = (
+        <section className="game-over-placeholder"></section>
+      )
     }
 
     return(
