@@ -4,12 +4,28 @@ class Api::ScoresController < ApplicationController
   end
 
   def create
-    @score = Score.new(score_params)
+    @new_score = Score.new(score_params)
+    @old_score = Score.find_by(username: params[:score][:username])
 
-    if @score.save
-      render json: @score, status: :created
+    if @old_score
+
+      if @new_score.time_elapsed < @old_score.time_elapsed
+        @old_score.update(score_params)
+        render json: @new_score
+      else
+        render json: ["That username already has a better score. Enter a different username or play again."],
+          status: :expectation_failed
+      end
+
     else
-      render json: @score.errors.full_messages, status: :unprocessable_entity
+
+      if @new_score.save
+        render json: @new_score, status: :created
+      else
+        render json: @new_score.errors.full_messages,
+          status: :unprocessable_entity
+      end
+
     end
   end
 
