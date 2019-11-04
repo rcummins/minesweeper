@@ -105,6 +105,11 @@ class Game extends React.Component {
       <div className="game">
         <h1>Minesweeper</h1>
 
+        <div className="instructions">
+          <p>Click on a tile to reveal it. Win by revealing all bomb-free tiles.</p>
+          <p>Right-click to flag a tile you suspect contains a bomb.</p>
+        </div>
+
         <div className="game-counters">
           <p><span>{'\u2691'}</span> { this.state.remainingFlags }</p>
           <p>{ this.state.timeElapsed } {'\u23F1'}</p>
