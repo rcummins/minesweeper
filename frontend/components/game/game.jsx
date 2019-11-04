@@ -82,7 +82,9 @@ class Game extends React.Component {
 
       let scoreForm;
       if (board.won()) {
-        scoreForm = <ScoreFormContainer timeElapsed={this.state.timeElapsed} />;
+        scoreForm = <ScoreFormContainer
+          timeElapsed={this.state.timeElapsed}
+          restartGame={this.restartGame} />;
       }
 
       let message = board.won() ? "Congrats, you won!" : "Sorry, you lost";

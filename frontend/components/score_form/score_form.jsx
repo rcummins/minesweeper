@@ -25,6 +25,7 @@ class ScoreForm extends React.Component {
       this.setState({ username: '' });
       this.props.fetchScores();
       this.props.clearErrors();
+      this.props.restartGame();
     });
   }
 
