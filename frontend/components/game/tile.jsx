@@ -29,12 +29,12 @@ class Tile extends React.Component {
     let className;
     let innerText;
 
-    if (tile.flagged) {
-      className = 'tile unexplored flagged';
-      innerText = '\u2691';
-    } else if (tile.gameOverBombRevealed) {
+    if (tile.gameOverBombRevealed) {
       className="tile explored";
       innerText = '\u{1F4A3}';
+    } else if (tile.flagged) {
+      className = 'tile unexplored flagged';
+      innerText = '\u2691';
     } else if (!tile.explored) {
       className = 'tile unexplored';
       innerText = '';
