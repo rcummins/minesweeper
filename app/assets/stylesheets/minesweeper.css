@@ -53,13 +53,23 @@ button {
   padding: 10px 0;
 }
 
-.game-over > p, .game-over > form, .game-over > button {
+.game-over > p, .game-over form {
   margin: 10px;
 }
 
 .game-over form button {
   margin-left: 10px;
   background-color: #0073ff;
+}
+
+.game-over-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-over-actions > button {
+  margin: 10px;
 }
 
 .game-over-placeholder {

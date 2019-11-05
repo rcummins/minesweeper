@@ -6,11 +6,18 @@ class ScoreForm extends React.Component {
     this.state = { username: '' };
 
     this.handleInput = this.handleInput.bind(this);
+    this.handlePlayAgain = this.handlePlayAgain.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInput(e) {
     this.setState({ username: e.target.value });
+  }
+
+  handlePlayAgain(e) {
+    e.preventDefault();
+    this.props.clearErrors();
+    this.props.restartGame();
   }
 
   handleSubmit(e) {
@@ -47,23 +54,27 @@ class ScoreForm extends React.Component {
     }
 
     return(
-      <form>
+      <div className="game-over-actions">
+        <form>
 
-        { errorMessage }
+          { errorMessage }
 
-        <label htmlFor="username">
-          Enter a username for the scoreboard:
-        </label>
+          <label htmlFor="username">
+            Enter a username for the scoreboard:
+          </label>
 
-        <input
-          type="text"
-          id="username"
-          onChange={this.handleInput}
-          value={this.state.username} ></input>
+          <input
+            type="text"
+            id="username"
+            onChange={this.handleInput}
+            value={this.state.username} ></input>
 
-        <button onClick={this.handleSubmit} >Submit</button>
+          <button onClick={this.handleSubmit} >Submit</button>
 
-      </form>
+        </form>
+
+        <button onClick={this.handlePlayAgain}>Play again</button>
+      </div>
     )
   }
 }

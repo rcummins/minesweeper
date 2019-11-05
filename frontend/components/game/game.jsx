@@ -99,7 +99,6 @@ class Game extends React.Component {
 
           { scoreForm }
 
-          <button onClick={this.restartGame}>Play again</button>
         </section>
       )
     } else {
