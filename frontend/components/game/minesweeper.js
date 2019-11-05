@@ -26,6 +26,10 @@ export class Tile {
     }
   }
 
+  firstClick() {
+    this.explored = true;
+  }
+
   gameOverRevealBomb() {
     this.gameOverBombRevealed = true;
   }
@@ -73,16 +77,16 @@ export class Board {
     this.columnCount = columnCount;
     this.bombCount = bombCount;
     this.grid = this.constructGrid();
-    this.addBombsToGrid();
   }
 
   addBombsToGrid() {
     while (this.totalBombs() < this.bombCount) {
       let row = Math.floor(Math.random() * this.rowCount);
       let column = Math.floor(Math.random() * this.columnCount);
+      let tile = this.grid[row][column];
 
-      if (!this.grid[row][column].hasBomb) {
-        this.grid[row][column].addBomb();
+      if (!tile.hasBomb && !tile.explored) {
+        tile.addBomb();
       }
     }
   }

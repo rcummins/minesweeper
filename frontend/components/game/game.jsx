@@ -11,12 +11,13 @@ class Game extends React.Component {
       board: new Minesweeper.Board(9, 9, 10),
       remainingFlags: 10,
       timeElapsed: 0,
-      timerStarted: false
+      gameStarted: false
     };
 
     this.exploreTile = this.exploreTile.bind(this);
     this.incrementTimer = this.incrementTimer.bind(this);
     this.restartGame = this.restartGame.bind(this);
+    this.startGame = this.startGame.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.toggleTileFlag = this.toggleTileFlag.bind(this);
   }
@@ -39,17 +40,23 @@ class Game extends React.Component {
       board: new Minesweeper.Board(9, 9, 10),
       remainingFlags: 10,
       timeElapsed: 0,
-      timerStarted: false
+      gameStarted: false
     });
   }
 
-  startTimer() {
-    if (!this.state.timerStarted) {
-      this.intervalId = window.setInterval(this.incrementTimer, 1000);
+  startGame(tile) {
+    if (!this.state.gameStarted) {
+      this.startTimer();
+      tile.firstClick();
+      this.state.board.addBombsToGrid();
       this.setState({
-        timerStarted: true
+        gameStarted: true
       });
     }
+  }
+
+  startTimer() {
+    this.intervalId = window.setInterval(this.incrementTimer, 1000);
   }
 
   toggleTileFlag(tile) {
@@ -118,7 +125,7 @@ class Game extends React.Component {
         <Board
           board={board}
           exploreTile={this.exploreTile}
-          startTimer={this.startTimer}
+          startGame={this.startGame}
           toggleTileFlag={this.toggleTileFlag} />
 
         { gameOver }

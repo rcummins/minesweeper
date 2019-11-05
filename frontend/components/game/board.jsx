@@ -2,7 +2,7 @@ import React from 'react';
 
 import Tile from './tile';
 
-const Board = ({ board, exploreTile, toggleTileFlag, startTimer }) => (
+const Board = ({ board, exploreTile, toggleTileFlag, startGame }) => (
   <div>
     { board.grid.map( (row, rowIndex) => (
       <div className="board-row" key={rowIndex}>
@@ -11,7 +11,7 @@ const Board = ({ board, exploreTile, toggleTileFlag, startTimer }) => (
             key={rowIndex*100 + columnIndex}
             tile={tile}
             exploreTile={exploreTile}
-            startTimer={startTimer}
+            startGame={startGame}
             toggleTileFlag={toggleTileFlag} />
         ))}
       </div>

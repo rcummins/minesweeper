@@ -15,7 +15,7 @@ class Tile extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.props.startTimer();
+    this.props.startGame(this.props.tile);
     this.props.exploreTile(this.props.tile);
   }
 
