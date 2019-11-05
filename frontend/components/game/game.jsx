@@ -45,7 +45,7 @@ class Game extends React.Component {
   }
 
   startGame(tile) {
-    if (!this.state.gameStarted) {
+    if (!this.state.gameStarted && !tile.flagged) {
       this.startTimer();
       tile.firstClick();
       this.state.board.addBombsToGrid();
