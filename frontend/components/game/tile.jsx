@@ -10,7 +10,6 @@ class Tile extends React.Component {
 
   handleAuxClick(e) {
     e.preventDefault();
-    this.props.startTimer();
     this.props.toggleTileFlag(this.props.tile);
   }
 
