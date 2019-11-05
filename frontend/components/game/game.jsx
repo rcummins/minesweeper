@@ -84,11 +84,16 @@ class Game extends React.Component {
       clearInterval(this.intervalId);
       board.gameOverRevealAllBombs();
 
-      let scoreForm;
+      let gameOverActions;
       if (board.won()) {
-        scoreForm = <ScoreFormContainer
+        gameOverActions = <ScoreFormContainer
           timeElapsed={this.state.timeElapsed}
           restartGame={this.restartGame} />;
+      } else {
+        gameOverActions =
+          <div className="game-over-actions">
+            <button onClick={this.restartGame}>Play again</button>
+          </div>;
       }
 
       let message = board.won() ? "Congrats, you won!" : "Sorry, you lost";
@@ -97,7 +102,7 @@ class Game extends React.Component {
         <section className="game-over">
           <p>{ message }</p>
 
-          { scoreForm }
+          { gameOverActions }
 
         </section>
       )
