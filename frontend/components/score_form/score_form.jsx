@@ -28,6 +28,12 @@ class ScoreForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
+    const cleanUpAfterSubmit = () => {
+      this.setState({ username: '' });
+      this.props.clearErrors();
+      this.props.restartGame();
+    };
+
     const allScores = this.props.allScores;
     if (usernameOnScoreboard(allScores, this.state.username)) {
 
@@ -40,18 +46,10 @@ class ScoreForm extends React.Component {
             time_elapsed: this.props.timeElapsed
           }
         };
-        this.props.updateScore(updatedScore).then( () => {
-          this.setState({ username: '' });
-          this.props.fetchScores();
-          this.props.clearErrors();
-          this.props.restartGame();
-        });
-
+        this.props.updateScore(updatedScore).then(() => cleanUpAfterSubmit());
       } else {
         alert('Your score was not recorded because you already have a better score on the scoreboard');
-        this.setState({ username: '' });
-        this.props.clearErrors();
-        this.props.restartGame();
+        cleanUpAfterSubmit();
       }
 
     } else {
@@ -62,12 +60,7 @@ class ScoreForm extends React.Component {
           time_elapsed: this.props.timeElapsed
         }
       };
-      this.props.createScore(newScore).then( () => {
-        this.setState({ username: '' });
-        this.props.fetchScores();
-        this.props.clearErrors();
-        this.props.restartGame();
-      });
+      this.props.createScore(newScore).then(() => cleanUpAfterSubmit());
 
     }
   }

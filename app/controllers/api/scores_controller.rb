@@ -1,15 +1,16 @@
 class Api::ScoresController < ApplicationController
   def index
-    render json: Score.all.order('time_elapsed ASC')
+    @scores = Score.all
+    render :index
   end
 
   def create
-    @new_score = Score.new(score_params)
+    @score = Score.new(score_params)
 
-    if @new_score.save
-      render json: @new_score, status: :created
+    if @score.save
+      render :show, status: :created
     else
-      render json: @new_score.errors.full_messages,
+      render json: @score.errors.full_messages,
         status: :unprocessable_entity
     end
   end
@@ -18,7 +19,7 @@ class Api::ScoresController < ApplicationController
     @score = Score.find(params[:id])
 
     if @score.update(score_params)
-      render json: @score
+      render :show
     else
       render json: @score.errors.full_messages, status: :unprocessable_entity
     end

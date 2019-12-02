@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 
 import { fetchScores } from '../../actions/score_actions';
+import { scoresArraySorted } from '../../reducers/selectors';
 import Scores from './scores';
 
 const mapStateToProps = state => ({
-  scores: state.scores
+  scores: scoresArraySorted(state)
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -5,10 +5,10 @@ const scoresReducer = ( oldState = [], action ) => {
 
   switch(action.type) {
     case RECEIVE_SCORES:
-      return action.scores;
+      return Object.assign({}, action.scores);
 
     case RECEIVE_SCORE:
-      return [...oldState, action.score];
+      return Object.assign({}, oldState, action.score);
 
     default:
       return oldState;

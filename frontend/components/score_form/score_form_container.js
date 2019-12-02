@@ -1,20 +1,16 @@
 import { connect } from 'react-redux';
 
-import {
-  fetchScores,
-  createScore,
-  updateScore
-} from '../../actions/score_actions';
+import { createScore, updateScore } from '../../actions/score_actions';
 import { clearErrors } from '../../actions/error_actions';
+import { scoresArray } from '../../reducers/selectors';
 import ScoreForm from './score_form';
 
 const mapStateToProps = state => ({
-  allScores: state.scores,
+  allScores: scoresArray(state),
   errors: state.errors
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchScores: () => dispatch(fetchScores()),
   createScore: score => dispatch(createScore(score)),
   updateScore: score => dispatch(updateScore(score)),
   clearErrors: () => dispatch(clearErrors())
