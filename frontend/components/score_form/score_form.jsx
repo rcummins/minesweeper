@@ -1,5 +1,10 @@
 import React from 'react';
 
+import {
+  selectScoreByUsername,
+  usernameOnScoreboard
+} from '../../reducers/selectors';
+
 class ScoreForm extends React.Component {
   constructor(props) {
     super(props);
@@ -22,18 +27,49 @@ class ScoreForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let score = {
-      score: {
-        username: this.state.username,
-        time_elapsed: this.props.timeElapsed
+
+    const allScores = this.props.allScores;
+    if (usernameOnScoreboard(allScores, this.state.username)) {
+
+      const oldScore = selectScoreByUsername(allScores, this.state.username);
+      if (this.props.timeElapsed < oldScore.time_elapsed) {
+        let updatedScore = {
+          score: {
+            id: oldScore.id,
+            username: oldScore.username,
+            time_elapsed: this.props.timeElapsed
+          }
+        };
+        this.props.updateScore(updatedScore).then( () => {
+          this.setState({ username: '' });
+          this.props.fetchScores();
+          this.props.clearErrors();
+          this.props.restartGame();
+        });
+
+      } else {
+        alert('Your score was not recorded because you already have a better score on the scoreboard');
+        this.setState({ username: '' });
+        this.props.clearErrors();
+        this.props.restartGame();
       }
-    };
-    this.props.createScore(score).then( () => {
-      this.setState({ username: '' });
-      this.props.fetchScores();
-      this.props.clearErrors();
-      this.props.restartGame();
-    });
+
+    } else {
+
+      let newScore = {
+        score: {
+          username: this.state.username,
+          time_elapsed: this.props.timeElapsed
+        }
+      };
+      this.props.createScore(newScore).then( () => {
+        this.setState({ username: '' });
+        this.props.fetchScores();
+        this.props.clearErrors();
+        this.props.restartGame();
+      });
+
+    }
   }
 
   render() {

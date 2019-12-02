@@ -12,3 +12,11 @@ export const createScore = score => (
     data: score
   })
 );
+
+export const updateScore = score => (
+  $.ajax({
+    method: 'PUT',
+    url: `/api/scores/${score.score.id}`,
+    data: score
+  })
+);

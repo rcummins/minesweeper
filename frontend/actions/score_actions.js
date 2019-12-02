@@ -26,3 +26,9 @@ export const createScore = formScore => dispatch => (
     errors => dispatch(receiveErrors(errors.responseJSON))
   )
 );
+
+export const updateScore = formScore => dispatch => (
+  ScoreAPIUtil.updateScore(formScore).then(
+    score => dispatch(receiveScore(score))
+  )
+);
