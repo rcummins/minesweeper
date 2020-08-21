@@ -95,6 +95,8 @@ class ScoreForm extends React.Component {
           <input
             type="text"
             id="username"
+            autocomplete="off"
+            spellcheck="false"
             onChange={this.handleInput}
             value={this.state.username} ></input>
 
