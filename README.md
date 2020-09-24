@@ -1,5 +1,7 @@
 # Minesweeper
-[renata-minesweeper.herokuapp.com](https://renata-minesweeper.herokuapp.com/?utm_source=github&utm_medium=readme&utm_campaign=github)
+See it live: [renata-minesweeper.herokuapp.com](https://renata-minesweeper.herokuapp.com/?utm_source=github&utm_medium=readme&utm_campaign=github)
+
+![Minesweeper preview](https://renatacumminsprojectgifs.s3.amazonaws.com/minesweeper.gif)
 
 ## Application description
 Minesweeper is a clone of the classic PC game. Features include:
